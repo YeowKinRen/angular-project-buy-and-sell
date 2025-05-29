@@ -200,3 +200,8 @@ DB_SOCKET=/cloudsql/YOUR_PROJECT_ID:region:instance-name
 
 PORT=8000
 ```
+## 🚀 Live Demo
+
+Try out the live version of the Buy and Sell project here:
+
+[https://buy-and-sell-1b75e.et.r.appspot.com/](https://buy-and-sell-1b75e.et.r.appspot.com/)
