@@ -1,0 +1,24 @@
+<div class="container mt-5" *ngIf="listing; else loading">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title mb-4">Edit Listing</h2>
+      <app-listing-data-form 
+        buttonText="Save Changes"
+        [currentName]="listing.name"
+        [currentDescription]="listing.description"
+        [currentPrice]="listing.price"
+        [currentImageUrl]="listing.imageUrl"
+        (onSubmit)="onSubmit($event)">
+      </app-listing-data-form>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="container mt-5 text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Loading listing details...</p>
+  </div>
+</ng-template>

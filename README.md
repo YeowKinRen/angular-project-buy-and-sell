@@ -18,11 +18,11 @@ A full-stack web application where users can list products for sale and browse o
 
 ## 📦 Project Structure
 
-angular-project-buy-and-sell/
-│
-├── buy-and-sell/ # Angular frontend project
-│
-└── buy-and-sell-backend/ # Node.js + Hapi.js backend API
+angular-project-buy-and-sell/  
+│  
+├── buy-and-sell/ # Angular frontend project  
+│  
+└── buy-and-sell-backend/ # Node.js + Hapi.js backend API  
 
 ## 🔧 Front-End (Angular)
 

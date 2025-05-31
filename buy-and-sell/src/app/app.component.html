@@ -1,0 +1,27 @@
+<!-- Only show spinner if not loaded yet -->
+<div *ngIf="isLoaded$ | async; else loading">
+  <div id="page-wrap" *ngIf="user$ | async as user; else signInBlock">
+    <div id="max-width-column">
+      <app-nav-bar></app-nav-bar>
+      <div id="content-wrap">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="spinner"></div>
+</ng-template>
+
+<ng-template #signInBlock>
+  <div id="max-width-column">
+      <div class="text-center mb-4">
+        <h2 class="fw-bold mb-2">Welcome!</h2>
+        <p class="text-muted">Please sign in to continue</p>
+      </div>
+    <button (click)="signInClicked()">        
+      <i class="bi bi-google me-2"></i> Sign in with Google
+    </button>
+  </div>
+</ng-template>

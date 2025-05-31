@@ -1,0 +1,22 @@
+<div class="listing-grid">
+  <div class="listing-card" *ngFor="let listing of listings">
+    <div class="listing-info">
+      <h3 class="listing-title">{{ listing.name }}</h3>
+      <p class="listing-description">{{ listing.description || 'No description available.' }}</p>
+      <p class="listing-price">${{ listing.price }}</p>
+    </div>
+
+    <div class="buttons-container">
+      <a [routerLink]="['/edit-listing', listing.id]">
+        <button class="btn btn-secondary">Edit</button>
+      </a>
+      <button class="btn btn-danger" (click)="onDeleteClicked(listing.id)">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="new-listing-btn">
+  <a routerLink="/new-listing">
+    <button class="btn btn-primary">+ Create New Listing</button>
+  </a>
+</div>

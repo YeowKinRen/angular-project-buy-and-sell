@@ -1,0 +1,54 @@
+<form (ngSubmit)="onButtonClicked()" class="p-4 shadow rounded bg-white">
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input
+      id="name"
+      name="name"
+      type="text"
+      class="form-control"
+      [(ngModel)]="name"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Item Description</label>
+    <input
+      id="description"
+      name="description"
+      type="text"
+      class="form-control"
+      [(ngModel)]="description"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="price" class="form-label">Price</label>
+    <input
+      id="price"
+      name="price"
+      type="number"
+      class="form-control"
+      [(ngModel)]="price"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="file" class="form-label">Upload Image</label>
+    <input
+      id="file"
+      name="file"
+      type="file"
+      class="form-control"
+      (change)="onFileSelected($event)"
+    />
+  </div>
+
+    <!-- Image preview -->
+  <div *ngIf="imagePreviewUrl" class="mb-3">
+    <img [src]="imagePreviewUrl" alt="Image preview" class="img-fluid rounded" style="max-height: 200px;" />
+  </div>
+
+  <button type="submit" class="btn btn-primary w-100">
+    {{ buttonText }}
+  </button>
+</form>
