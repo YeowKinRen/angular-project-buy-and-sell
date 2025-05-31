@@ -1,0 +1,26 @@
+<div class="listing-grid" *ngIf="!isLoading">
+  <div class="listing-card">
+    <div class="listing-info">
+      <p class="listing-views">👁️ {{ listing?.views }} views</p>
+
+      <h2 class="listing-title">{{ listing?.name }}</h2>
+      <p class="listing-price">${{ listing?.price }}</p>
+      <p class="listing-description">{{ listing?.description }}</p>
+      <!-- Image  -->
+      <div *ngIf="listing?.imageUrl" class="mb-3">
+        <img [src]="listing?.imageUrl" alt="Listing image" class="img-fluid rounded" style="max-height: 200px;" />
+      </div>
+
+
+      <div class="listing-actions">
+        <a routerLink="/listings">
+          <button>Back to Listings</button>
+        </a>
+
+        <a [routerLink]="['/contact', listing?.id]" class="ml-auto">
+          <button >Contact Seller</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

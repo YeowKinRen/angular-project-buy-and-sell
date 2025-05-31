@@ -1,0 +1,29 @@
+<form (ngSubmit)="sendMessage()" class="p-4 shadow rounded bg-white">
+  <h3 class="mb-4">Send the owner a message</h3>
+
+  <div class="mb-3">
+    <label for="email" class="form-label">Your email address</label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      class="form-control"
+      [(ngModel)]="email"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="message" class="form-label">Your message</label>
+    <textarea
+      id="message"
+      name="message"
+      rows="5"
+      class="form-control"
+      [(ngModel)]="message"
+      required
+    ></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary w-100">Send</button>
+</form>

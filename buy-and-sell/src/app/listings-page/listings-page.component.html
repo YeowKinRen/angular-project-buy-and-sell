@@ -1,0 +1,16 @@
+<div class="listing-grid">
+  <div class="listing-card" *ngFor="let listing of listings">
+    <a [routerLink]="['/listings', listing.id]" class="listing-link">
+
+      <!-- Info section -->
+      <div class="listing-info">
+        <h3 class="listing-title">
+          {{ listing.name }}
+        </h3>
+        <p class="listing-price">${{ listing.price }}</p>
+        <p class="listing-description">{{ listing.description || 'No description provided.' }}</p>
+      </div>
+
+    </a>
+  </div>
+</div>
