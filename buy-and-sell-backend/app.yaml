@@ -1,0 +1,16 @@
+runtime: nodejs
+env: flex
+runtime_config:
+  operating_system: "ubuntu22"
+  runtime_version: "22"
+manual_scaling:
+  instances: 1  
+beta_settings:
+  cloud_sql_instances: buy-and-sell-1b75e:asia-southeast1:buy-and-sell-db
+env_variables:
+  DB_USER: root
+  DB_PASS: password
+  DB_NAME: buy-and-sell
+  DB_SOCKET: /cloudsql/buy-and-sell-1b75e:asia-southeast1:buy-and-sell-db
+
+entrypoint: npm start
