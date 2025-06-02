@@ -1,0 +1,7 @@
+<div class="message-container">
+<div class="message-box" *ngFor="let entry of groupedSentMessages | keyvalue" (click)="openMessageDetail(entry.key)">
+  <h4>📦 Listing: {{ entry.value.listingName }}</h4>
+    <p>{{ entry.value.message.message }}</p>
+    <small>{{ entry.value.message.timestamp | date:'short' }}</small>
+  </div>
+</div>

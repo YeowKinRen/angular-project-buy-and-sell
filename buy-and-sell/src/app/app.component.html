@@ -2,7 +2,7 @@
 <div *ngIf="isLoaded$ | async; else loading">
   <div id="page-wrap" *ngIf="user$ | async as user; else signInBlock">
     <div id="max-width-column">
-      <app-nav-bar></app-nav-bar>
+      <app-nav-bar (signOut)="signOutClicked()"></app-nav-bar>
       <div id="content-wrap">
         <router-outlet></router-outlet>
       </div>

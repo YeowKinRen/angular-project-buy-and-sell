@@ -2,10 +2,10 @@ import { Injectable, inject, NgZone } from '@angular/core';
 import { Listing, Message } from './types';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Auth } from '@angular/fire/auth';
-import { User } from 'firebase/auth'; 
-import { authState } from 'rxfire/auth'; 
+import { User } from 'firebase/auth';
+import { authState } from 'rxfire/auth';
 
 
 const httpOptions = {
@@ -48,8 +48,8 @@ export class ListingsService {
   }
 
   addViewToListing(id: string): Observable<Listing> {
-    return this.http.post<Listing>(`/api/listings/${id}/add-view`, 
-      {}, 
+    return this.http.post<Listing>(`/api/listings/${id}/add-view`,
+      {},
       httpOptions);
   }
 
@@ -74,20 +74,20 @@ export class ListingsService {
   // Wrap getIdToken() with from() inside NgZone.run() properly
   // because Firebase's getIdToken() relies on being executed within Angular's zone-aware context
   getIdTokenSafe(user: User): Observable<string> {
-  return new Observable(observer => {
-    this.zone.run(() => {
-      user.getIdToken().then(
-        token => {
-          observer.next(token);
-          observer.complete();
-        },
-        err => observer.error(err)
-      );
+    return new Observable(observer => {
+      this.zone.run(() => {
+        user.getIdToken().then(
+          token => {
+            observer.next(token);
+            observer.complete();
+          },
+          err => observer.error(err)
+        );
+      });
     });
-  });
-}
+  }
 
-      // Use getUser$ to fetch listings
+  // Use getUser$ to fetch listings
   deleteListing(id: string): Observable<Listing> {
     return this.getUser$().pipe(
       switchMap(user => {
@@ -115,7 +115,7 @@ export class ListingsService {
           switchMap(token =>
             this.http.post<Listing>(
               `/api/listings`,
-              {name, description, price, imageUrl},
+              { name, description, price, imageUrl },
               httpOptionsWithAuthToken(token)
             )
           )
@@ -124,16 +124,16 @@ export class ListingsService {
     );
   }
 
-  editListing(id: string, name: string, description: string, price: number, imageUrl: string|null): Observable<Listing> {
+  editListing(id: string, name: string, description: string, price: number, imageUrl: string | null): Observable<Listing> {
     return this.getUser$().pipe(
       switchMap(user => {
         if (!user) throw new Error('User not authenticated');
 
         return this.getIdTokenSafe(user).pipe(
-          switchMap(token => 
+          switchMap(token =>
             this.http.post<Listing>(
               `/api/listings/${id}`,
-              {name, description, price, imageUrl},
+              { name, description, price, imageUrl },
               httpOptionsWithAuthToken(token)
             )
           )
@@ -142,16 +142,37 @@ export class ListingsService {
     );
   }
 
-  sendMessage(listingId: string, email: string, message: string) {
-  return this.http.post('/api/messages', {
-    listingId,
-    senderEmail: email,
-    message
-  });
-}
+  getMessages(listingId: string) {
+    return this.http.get<Message[]>(`/api/messages/${listingId}`);
+  }
 
-getMessages(listingId: string) {
-  return this.http.get<Message[]>(`/api/messages/${listingId}`);
-}
+  getChatHistory(listingId: string, senderEmail: string): Observable<Message[]> {
+    const params = new HttpParams().set('email', senderEmail);
+    return this.http.get<Message[]>(`/api/messages/history/${listingId}`, { params }
+    );
+  }
+
+  sendMessage(
+    listingId: string,
+    recipientEmail: string | null,
+    senderEmail: String | null,
+    message: string,
+  ): Observable<Message> {
+    return this.getUser$().pipe(
+      switchMap(user => {
+        if (!user) throw new Error('User not authenticated');
+
+        return this.getIdTokenSafe(user).pipe(
+          switchMap(token =>
+            this.http.post<Message>(
+              `/api/messages/send`,
+              { listingId, recipientEmail, senderEmail, message },
+              httpOptionsWithAuthToken(token)
+            )
+          )
+        );
+      })
+    );
+  }
 
 }

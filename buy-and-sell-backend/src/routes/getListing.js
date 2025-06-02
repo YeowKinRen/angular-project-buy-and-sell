@@ -15,7 +15,7 @@ export const getListingRoute = {
 
         const dbRow = results[0];
 
-        // 🔁 Manually map snake_case keys to camelCase keys
+        // Manually map snake_case keys to camelCase keys
         const listing = {
         id: dbRow.id,
         name: dbRow.name,

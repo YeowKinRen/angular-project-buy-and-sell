@@ -205,3 +205,11 @@ PORT=8000
 Try out the live version of the Buy and Sell project here:
 
 [https://buy-and-sell-1b75e.et.r.appspot.com/](https://buy-and-sell-1b75e.et.r.appspot.com/)
+
+## 📚 Reference:
+
+This project was initially built by following the LinkedIn Learning tutorial and later customized for improvements and personal learning.
+
+- [https://www.linkedin.com/learning/angular-creating-and-hosting-a-full-stack-site/build-and-serve-an-angular-app](https://www.linkedin.com/learning/angular-creating-and-hosting-a-full-stack-site/build-and-serve-an-angular-app)
+
+- [https://v17.angular.io/guide/understanding-angular-overview](https://v17.angular.io/guide/understanding-angular-overview)

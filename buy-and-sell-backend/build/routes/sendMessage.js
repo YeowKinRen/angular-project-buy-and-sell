@@ -5,50 +5,42 @@ var _typeof = require("@babel/runtime/helpers/typeof");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getUserListingsRoute = void 0;
+exports.sendMessageRoute = void 0;
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+var _uuid = require("uuid");
 var _database = require("../database");
 var admin = _interopRequireWildcard(require("firebase-admin"));
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function _interopRequireWildcard(e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, "default": e }; if (null === e || "object" != _typeof(e) && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (var _t in e) "default" !== _t && {}.hasOwnProperty.call(e, _t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, _t)) && (i.get || i.set) ? o(f, _t, i) : f[_t] = e[_t]); return f; })(e, t); }
-var getUserListingsRoute = exports.getUserListingsRoute = {
-  method: 'GET',
-  path: '/api/users/{userId}/listings',
+var sendMessageRoute = exports.sendMessageRoute = {
+  method: 'POST',
+  path: '/api/messages/send',
   handler: function () {
     var _handler = (0, _asyncToGenerator2["default"])(/*#__PURE__*/_regenerator["default"].mark(function _callee(req, h) {
-      var token, user, userId, _yield$db$query, results;
+      var _req$payload, _req$payload$listingI, listingId, _req$payload$recipien, recipientEmail, _req$payload$senderEm, senderEmail, _req$payload$message, message, token, user, id, userId, timestamp;
       return _regenerator["default"].wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
+            _req$payload = req.payload, _req$payload$listingI = _req$payload.listingId, listingId = _req$payload$listingI === void 0 ? '' : _req$payload$listingI, _req$payload$recipien = _req$payload.recipientEmail, recipientEmail = _req$payload$recipien === void 0 ? '' : _req$payload$recipien, _req$payload$senderEm = _req$payload.senderEmail, senderEmail = _req$payload$senderEm === void 0 ? '' : _req$payload$senderEm, _req$payload$message = _req$payload.message, message = _req$payload$message === void 0 ? '' : _req$payload$message;
             token = req.headers.authtoken;
-            _context.next = 3;
+            _context.next = 4;
             return admin.auth().verifyIdToken(token);
-          case 3:
+          case 4:
             user = _context.sent;
-            userId = req.params.userId;
-            if (!(user.user_id !== userId)) {
-              _context.next = 7;
-              break;
-            }
-            throw Boom.unauthorised('Users can only access their own listing!');
-          case 7:
-            _context.next = 9;
-            return _database.db.query('SELECT * FROM listings WHERE user_id=?', [userId]);
-          case 9:
-            _yield$db$query = _context.sent;
-            results = _yield$db$query.results;
-            return _context.abrupt("return", results.map(function (dbRow) {
-              return {
-                id: dbRow.id,
-                name: dbRow.name,
-                description: dbRow.description,
-                price: dbRow.price,
-                userId: dbRow.user_id,
-                views: dbRow.views,
-                imageUrl: dbRow.image_url
-              };
-            }));
-          case 12:
+            id = (0, _uuid.v4)();
+            userId = user.uid;
+            timestamp = new Date();
+            _context.next = 10;
+            return _database.db.query("\n      INSERT INTO messages (id, listing_id, sender_email, recipient_email, message)\n      VALUES (?, ?, ?, ?, ?)", [id, listingId, senderEmail, recipientEmail, message]);
+          case 10:
+            return _context.abrupt("return", {
+              id: id,
+              listingId: listingId,
+              senderEmail: senderEmail,
+              recipientEmail: recipientEmail,
+              message: message
+            });
+          case 11:
           case "end":
             return _context.stop();
         }

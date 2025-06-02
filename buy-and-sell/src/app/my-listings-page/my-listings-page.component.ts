@@ -12,6 +12,7 @@ import { ListingsService } from '../listings.service';
 })
 export class MyListingsPageComponent {
   listings: Listing[] = [];
+  
   constructor(
     private listingsService: ListingsService,
   ) {}

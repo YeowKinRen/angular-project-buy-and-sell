@@ -180,6 +180,13 @@ textarea:focus {
     position: relative;
 }
 
+.listing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem; /* Ensures spacing between buttons even when wrapping */
+  margin-top: 1rem;
+}
+
 .listing-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-medium);
@@ -218,4 +225,133 @@ textarea:focus {
 
 .ml-auto {
   margin-left: auto;
+}
+
+
+
+
+
+/* Message Layout */
+.message-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.message-box {
+  background: var(--content-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.message-box:hover {
+  box-shadow: var(--shadow-medium);
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.sender-email {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.message-content {
+  color: #444;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+
+/* Chat Container */
+.chat-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  background: #fff;
+  box-shadow: var(--shadow-light);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Chat Messages Scroll Area */
+.chat-container .chat-message {
+  max-width: 60%;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  position: relative;
+  word-wrap: break-word;
+}
+
+/* Messages from you (sent) */
+.chat-message.sent {
+  align-self: flex-end;
+  background-color: var(--secondary-color);
+  color: white;
+  border-bottom-right-radius: 0;
+}
+
+/* Messages from other user (received) */
+.chat-message.received {
+  align-self: flex-start;
+  background-color: #f1f1f1;
+  color: #333;
+  border-bottom-left-radius: 0;
+}
+
+/* Timestamp styling */
+.chat-message small {
+  display: block;
+  font-size: 0.75rem;
+  margin-top: 0.3rem;
+  opacity: 0.7;
+}
+
+/* Message Input Box */
+.message-input {
+  margin-top: auto;
+  display: flex;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ccc;
+}
+
+.message-input input {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+}
+
+.message-input button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.message-input button:hover {
+  background-color: var(--primary-color-dark);
+}
+
+:root {
+  --primary-color: #007bff;          /* Example blue */
+  --primary-color-dark: #0056b3;     /* Darker shade for hover */
+  --border-radius: 6px;              /* Optional */
 }

@@ -16,6 +16,14 @@ export const getUserListingsRoute = {
             'SELECT * FROM listings WHERE user_id=?',
             [userId],
         );
-        return results;
+        return results.map(dbRow => ({
+            id: dbRow.id,
+            name: dbRow.name,
+            description: dbRow.description,
+            price: dbRow.price,
+            userId: dbRow.user_id,
+            views: dbRow.views,
+            imageUrl: dbRow.image_url,
+        }));
     }
 }

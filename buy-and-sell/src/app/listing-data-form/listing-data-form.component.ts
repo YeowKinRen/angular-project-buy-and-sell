@@ -41,12 +41,14 @@ export class ListingDataFormComponent implements OnInit {
   onButtonClicked(): void {
     this.onSubmit.emit({
       listing: {
-        id: null,
+        id: "",
         name: this.name,
         description: this.description,
         price: Number(this.price),
         views: 0,
         imageUrl: "",
+        userId: "",
+
       },
       file: this.selectedFile
     });
