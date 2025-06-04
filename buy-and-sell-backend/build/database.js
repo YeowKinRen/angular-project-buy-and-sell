@@ -11,8 +11,7 @@ var connection;
 var db = exports.db = {
   connect: function connect() {
     connection = _mysql["default"].createConnection({
-      host: process.env.DB_HOST,
-      // remove `host` if using socketPath
+      // host: process.env.DB_HOST, // remove `host` if using socketPath
       user: process.env.DB_USER,
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,

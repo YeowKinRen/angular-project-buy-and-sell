@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.google.firebase.auth.FirebaseAuth"/>
+    <fullyQualifiedTypeName name="com.example.buy_and_sell.exception.UnauthorizedException"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
+    <fullyQualifiedTypeName name="org.hibernate.annotations.GenericGenerator"/>
+    <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
+    <fullyQualifiedTypeName name="com.google.firebase.auth.FirebaseToken"/>
+    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
+    <fullyQualifiedTypeName name="java.util.UUID"/>
+    <fullyQualifiedTypeName name="com.google.firebase.auth.FirebaseAuthException"/>
+    <fullyQualifiedTypeName name="java.sql.Timestamp"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,46 @@
+package com.example.buy_and_sell.controller;
+
+import com.example.buy_and_sell.entity.Message;
+import com.example.buy_and_sell.repository.MessageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/messages")
+public class MessageController {
+
+    @Autowired
+    private MessageRepository messageRepository;
+    
+    @GetMapping("/messages/{listingId}")
+    public ResponseEntity<List<Message>> getMessagesByListingId(@PathVariable String listingId) {
+        List<Message> messages = messageRepository.findByListingIdOrderByTimestampDesc(listingId);
+
+        // Convert Message entities to DTO with camelCase fields if needed
+        List<MessageDto> messageDtos = messages.stream()
+            .map(m -> new MessageDto(
+                m.getId(),
+                m.getListingId(),
+                m.getSenderEmail(),
+                m.getRecipientEmail(),
+                m.getMessage(),
+                m.getTimestamp()))
+            .toList();
+
+        return ResponseEntity.ok(messageDtos);
+    }
+
+
+    @GetMapping
+    public List<Message> getAllMessages() {
+        return messageRepository.findAll();
+    }
+
+    @PostMapping
+    public Message sendMessage(@RequestBody Message message) {
+        return messageRepository.save(message);
+    }
+}

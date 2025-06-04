@@ -1,0 +1,85 @@
+package com.example.buy_and_sell.controller;
+
+import com.example.buy_and_sell.entity.Listing;
+import com.example.buy_and_sell.repository.ListingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/listings")
+public class ListingController {
+
+    private final ListingRepository listingRepository;
+    private final FirebaseAuth firebaseAuth; // from Firebase Admin SDK
+
+    @Autowired
+    public ListingController(ListingRepository listingRepository, FirebaseAuth firebaseAuth) {
+        this.listingRepository = listingRepository;
+        this.firebaseAuth = firebaseAuth;
+    }
+
+    @GetMapping
+    public List<Listing> getAllListings() {
+        return listingRepository.findAll();
+    }
+    
+    @GetMapping("/{userId}/listings")
+    public ResponseEntity<List<Listing>> getUserListings(
+        @RequestHeader("authtoken") String token,
+        @PathVariable String userId
+    ) {
+        try {
+            // Verify token with Firebase
+            FirebaseToken decodedToken = firebaseAuth.verifyIdToken(token);
+            String authenticatedUserId = decodedToken.getUid();
+
+            if (!authenticatedUserId.equals(userId)) {
+                // User ID in token does not match requested userId
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(null); // or throw an exception handled by @ControllerAdvice
+            }
+
+            // Query listings for userId
+            List<Listing> listings = listingService.getListingsByUserId(userId);
+            return ResponseEntity.ok(listings);
+
+        } catch (FirebaseAuthException e) {
+            // Token verification failed
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+    
+
+    @GetMapping("/{id}")
+    public Optional<Listing> getListingById(@PathVariable String id) {
+        return listingRepository.findById(id);
+    }
+
+    @PostMapping
+    public Listing createListing(@RequestBody Listing listing) {
+        return listingRepository.save(listing);
+    }
+
+    @PutMapping("/{id}")
+    public Listing updateListing(@PathVariable String id, @RequestBody Listing updatedListing) {
+        return listingRepository.findById(id)
+                .map(listing -> {
+                    listing.setName(updatedListing.getName());
+                    listing.setDescription(updatedListing.getDescription());
+                    listing.setPrice(updatedListing.getPrice());
+                    listing.setUserId(updatedListing.getUserId());
+                    listing.setViews(updatedListing.getViews());
+                    listing.setImageUrl(updatedListing.getImageUrl());
+                    return listingRepository.save(listing);
+                })
+                .orElseThrow(() -> new RuntimeException("Listing not found with id: " + id));
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteListing(@PathVariable String id) {
+        listingRepository.deleteById(id);
+    }
+}

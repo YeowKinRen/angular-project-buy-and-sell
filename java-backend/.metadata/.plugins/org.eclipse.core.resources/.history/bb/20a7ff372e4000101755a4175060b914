@@ -1,0 +1,41 @@
+package com.example.buy_and_sell.controller;
+
+import com.example.buy_and_sell.entity.Message;
+import com.example.buy_and_sell.repository.MessageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/messages")
+public class MessageController {
+
+    @Autowired
+    private MessageRepository messageRepository;
+
+    @GetMapping
+    public List<Message> getAllMessages() {
+        return messageRepository.findAll();
+    }
+
+    @GetMapping("/listing/{listingId}")
+    public List<Message> getMessagesByListing(@PathVariable String listingId) {
+        return messageRepository.findByListingId(listingId);
+    }
+
+    @GetMapping("/sent")
+    public List<Message> getMessagesSentBy(@RequestParam String senderEmail) {
+        return messageRepository.findBySenderEmail(senderEmail);
+    }
+
+    @GetMapping("/received")
+    public List<Message> getMessagesReceivedBy(@RequestParam String recipientEmail) {
+        return messageRepository.findByRecipientEmail(recipientEmail);
+    }
+
+    @PostMapping
+    public Message sendMessage(@RequestBody Message message) {
+        return messageRepository.save(message);
+    }
+}
