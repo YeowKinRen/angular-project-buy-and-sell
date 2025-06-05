@@ -24,6 +24,12 @@ angular-project-buy-and-sell/
 │  
 └── buy-and-sell-backend/ # Node.js + Hapi.js backend API  
 
+angular-project-buy-and-sell/  
+│  
+├── buy-and-sell/ # Angular frontend project  
+│  
+└── buy-and-sell-backend/ # Java + Spring Boot 
+
 ## 🔧 Front-End (Angular)
 
   
