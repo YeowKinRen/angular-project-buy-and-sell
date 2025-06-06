@@ -73,19 +73,25 @@ images:
 options:
   logging: CLOUD_LOGGING_ONLY
 
-availableSecrets:
-  secretManager:
-    - versionName: projects/$PROJECT_ID/secrets/FIREBASE_API_KEY/versions/latest
-      env: FIREBASE_API_KEY
-    - versionName: projects/$PROJECT_ID/secrets/FIREBASE_AUTH_DOMAIN/versions/latest
-      env: FIREBASE_AUTH_DOMAIN
-    - versionName: projects/$PROJECT_ID/secrets/FIREBASE_PROJECT_ID/versions/latest
-      env: FIREBASE_PROJECT_ID
-    - versionName: projects/$PROJECT_ID/secrets/FIREBASE_STORAGE_BUCKET/versions/latest
-      env: FIREBASE_STORAGE_BUCKET
-    - versionName: projects/$PROJECT_ID/secrets/FIREBASE_MSG_SENDER_ID/versions/latest
-      env: FIREBASE_MSG_SENDER_ID
-    - versionName: projects/$PROJECT_ID/secrets/FIREBASE_APP_ID/versions/latest
-      env: FIREBASE_APP_ID
-    - versionName: projects/$PROJECT_ID/secrets/FIREBASE_MEASUREMENT_ID/versions/latest
-      env: FIREBASE_MEASUREMENT_ID
+secrets:
+- secretManager:  
+    versionName: projects/$PROJECT_ID/secrets/FIREBASE_API_KEY/versions/latest
+    env: FIREBASE_API_KEY
+- secretManager:
+    versionName: projects/$PROJECT_ID/secrets/FIREBASE_AUTH_DOMAIN/versions/latest
+    env: FIREBASE_AUTH_DOMAIN
+- secretManager:
+    versionName: projects/$PROJECT_ID/secrets/FIREBASE_PROJECT_ID/versions/latest
+    env: FIREBASE_PROJECT_ID
+- secretManager:
+    versionName: projects/$PROJECT_ID/secrets/FIREBASE_STORAGE_BUCKET/versions/latest
+    env: FIREBASE_STORAGE_BUCKET
+- secretManager:
+    versionName: projects/$PROJECT_ID/secrets/FIREBASE_MSG_SENDER_ID/versions/latest
+    env: FIREBASE_MSG_SENDER_ID
+- secretManager:
+    versionName: projects/$PROJECT_ID/secrets/FIREBASE_APP_ID/versions/latest
+    env: FIREBASE_APP_ID
+- secretManager:
+    versionName: projects/$PROJECT_ID/secrets/FIREBASE_MEASUREMENT_ID/versions/latest
+    env: FIREBASE_MEASUREMENT_ID
