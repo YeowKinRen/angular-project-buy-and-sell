@@ -14,26 +14,23 @@ steps:
     args:
       - -c
       - |
-        echo "Creating environment.ts"
-        mkdir -p src/environments
-        cat <<EOF > src/environments/environment.ts
-        export const environment = {
-          production: false,
-          firebase: {
-            apiKey: "$FIREBASE_API_KEY",
-            authDomain: "$FIREBASE_AUTH_DOMAIN",
-            projectId: "$FIREBASE_PROJECT_ID",
-            storageBucket: "$FIREBASE_STORAGE_BUCKET",
-            messagingSenderId: "$FIREBASE_MSG_SENDER_ID",
-            appId: "$FIREBASE_APP_ID",
-            measurementId: "$FIREBASE_MEASUREMENT_ID"
-          }
-        };
-        EOF
-
-        npm install -g @angular/cli
-        npm install
-        ng build
+          echo "Creating environment.ts"
+          mkdir -p src/environments
+          echo "export const environment = {" > src/environments/environment.ts
+          echo "  production: false," >> src/environments/environment.ts
+          echo "  firebase: {" >> src/environments/environment.ts
+          echo "    apiKey: \"${FIREBASE_API_KEY}\"," >> src/environments/environment.ts
+          echo "    authDomain: \"${FIREBASE_AUTH_DOMAIN}\"," >> src/environments/environment.ts
+          echo "    projectId: \"${FIREBASE_PROJECT_ID}\"," >> src/environments/environment.ts
+          echo "    storageBucket: \"${FIREBASE_STORAGE_BUCKET}\"," >> src/environments/environment.ts
+          echo "    messagingSenderId: \"${FIREBASE_MSG_SENDER_ID}\"," >> src/environments/environment.ts
+          echo "    appId: \"${FIREBASE_APP_ID}\"," >> src/environments/environment.ts
+          echo "    measurementId: \"${FIREBASE_MEASUREMENT_ID}\"" >> src/environments/environment.ts
+          echo "  }" >> src/environments/environment.ts
+          echo "};" >> src/environments/environment.ts
+          npm install -g @angular/cli
+          npm install
+          ng build
 
   # Step 2: Build Spring Boot app
   - name: 'gcr.io/cloud-builders/mvn'
