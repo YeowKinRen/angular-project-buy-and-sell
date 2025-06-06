@@ -2,14 +2,14 @@ steps:
   # Step 1: Build Angular frontend
   - name: node:18
     dir: buy-and-sell/
-    entrypoint: npm
-    # args: ["run", "build"]  # Assumes output to dist/
+    entrypoint: bash
     args:
-    - -c
-    - |
-      npm install -g @angular/cli
-      npm install
-      ng build
+      - -c
+      - |
+          set -e
+          npm install -g @angular/cli
+          npm install
+          ng build
 
   # Step 2: Build Spring Boot app
   - name: 'gcr.io/cloud-builders/mvn'
@@ -18,10 +18,10 @@ steps:
 
   # Step 3: Copy Angular dist into Spring Boot static resources
   - name: 'gcr.io/cloud-builders/bash'
-    args: [
-      '-c',
-      'cp -r buy-and-sell/dist/browser/* java-backend/buy-and-sell/src/main/resources/static/'
-    ]
+    args:
+      - -c
+      - |
+          cp -r buy-and-sell/dist/browser/* java-backend/buy-and-sell/src/main/resources/static/
 
   # Step 4: Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
@@ -48,7 +48,6 @@ steps:
 
 images:
   - gcr.io/$PROJECT_ID/buy-and-sell-app
-
 
 options:
   logging: CLOUD_LOGGING_ONLY
