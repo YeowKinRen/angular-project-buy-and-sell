@@ -1,0 +1,44 @@
+steps:
+  # Step 1: Build Angular frontend
+  - name: node:18
+    dir: buy-and-sell/
+    entrypoint: npm
+    args: ["run", "build"]  # Assumes output to dist/
+
+  # Step 2: Build Spring Boot app
+  - name: 'gcr.io/cloud-builders/mvn'
+    dir: java-backend/buy-and-sell
+    args: ['clean', 'package', '-DskipTests']
+
+  # Step 3: Copy Angular dist into Spring Boot static resources
+  - name: 'gcr.io/cloud-builders/bash'
+    args: [
+      '-c',
+      'cp -r buy-and-sell/dist/browser/* java-backend/buy-and-sell/src/main/resources/static/'
+    ]
+
+  # Step 4: Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/buy-and-sell-app', 'java-backend/buy-and-sell']
+
+  # Step 5: Push Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/buy-and-sell-app']
+
+  # Step 6: Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    args:
+      - 'gcloud'
+      - 'run'
+      - 'deploy'
+      - 'buy-and-sell-app'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/buy-and-sell-app'
+      - '--region'
+      - 'asia-southeast1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+
+images:
+  - gcr.io/$PROJECT_ID/buy-and-sell-app
