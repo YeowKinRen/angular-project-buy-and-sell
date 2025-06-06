@@ -7,7 +7,7 @@ A full-stack web application where users can list products for sale and browse o
 
 -  **Frontend**: Angular
 
--  **Backend**: Node.js with Hapi.js
+-  **Backend**: (Node.js with Hapi.js) (Java with Spring Boot)
 
 -  **Database**: MySQL
 
@@ -41,7 +41,6 @@ Angular is a TypeScript-based web application framework allows to build fast, mo
 ### Setup
 
   
-
 ```bash
 
 npm  install  -g  @angular/cli  # Install Angular CLI globally
