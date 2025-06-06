@@ -46,32 +46,37 @@ export class ChatComponent implements OnInit {
 
         const myListings = listings.filter(listing => listing.userId === user.uid);
 
-        myListings.forEach(listing => {
-          this.listingsService.getMessages(listing.id).subscribe(messages => {
-            messages.forEach(msg => {
-              // Include both incoming and outgoing messages
-              const otherParty = msg.senderEmail === currentEmail
-                ? msg.recipientEmail || '(To self)'
-                : msg.senderEmail;
+        const listingIds = myListings.map(listing => listing.id);
 
-              if (!otherParty) return; // skip invalid case
+        if (listingIds.length === 0) return;
 
-              if (!this.groupedMessages[otherParty]) {
-                this.groupedMessages[otherParty] = {};
-              }
+        this.listingsService.getMessagesByListingIds(listingIds).subscribe(messages => {
+          messages.forEach(msg => {
+            const listing = myListings.find(l => l.id === msg.listingId);
+            if (!listing) return;
 
-              const existing = this.groupedMessages[otherParty][listing.id];
+            // Include both incoming and outgoing messages
+            const otherParty = msg.senderEmail === currentEmail
+              ? msg.recipientEmail || '(To self)'
+              : msg.senderEmail;
 
-              if (
-                !existing ||
-                new Date(msg.timestamp).getTime() > new Date(existing.message.timestamp).getTime()
-              ) {
-                this.groupedMessages[otherParty][listing.id] = {
-                  message: msg,
-                  listingName: listing.name
-                };
-              }
-            });
+            if (!otherParty) return; // skip invalid case
+
+            if (!this.groupedMessages[otherParty]) {
+              this.groupedMessages[otherParty] = {};
+            }
+
+            const existing = this.groupedMessages[otherParty][listing.id];
+
+            if (
+              !existing ||
+              new Date(msg.timestamp).getTime() > new Date(existing.message.timestamp).getTime()
+            ) {
+              this.groupedMessages[otherParty][listing.id] = {
+                message: msg,
+                listingName: listing.name
+              };
+            }
           });
         });
       });
@@ -82,12 +87,14 @@ export class ChatComponent implements OnInit {
 
 
 
-  async openMessageDetail(listingId: String, senderEmail: String): Promise<void> {
+  async openMessageDetail(listingId: String, senderEmail: String, conversationId: String): Promise<void> {
     const user = await firstValueFrom(this.user$);
     if (!user) return;
 
-    const queryParams = senderEmail === '(To self)' ? { recipientEmail: user.email } : { senderEmail };
-
+    const queryParams = senderEmail === '(To self)' ?
+      { recipientEmail: user.email, conversationId: conversationId } :
+      { senderEmail: senderEmail, conversationId: conversationId };
+    console.log(conversationId);
     this.router.navigate(['/chat', listingId], {
       queryParams
     });

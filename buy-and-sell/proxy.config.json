@@ -1,6 +1,6 @@
 {
     "/api": {
-        "target": "http://0.0.0.0:8000",
+        "target": "https://buy-and-sell-1b75e.et.r.appspot.com/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true

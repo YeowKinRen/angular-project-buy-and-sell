@@ -21,6 +21,7 @@ export class ChatPageComponent {
   recipientEmail!: string;
   email!: string;
   isRecipientView = false;
+  conversationId!: string;
 
   newMessage = '';
   private auth = inject(Auth);
@@ -36,6 +37,8 @@ export class ChatPageComponent {
     this.listingId = this.route.snapshot.paramMap.get('listingId')!;
     this.senderEmail = this.route.snapshot.queryParamMap.get('senderEmail')!;
     this.recipientEmail = this.route.snapshot.queryParamMap.get('recipientEmail')!;
+    this.conversationId = this.route.snapshot.queryParamMap.get('conversationId')!;
+
     if (this.recipientEmail) {
       this.email = this.recipientEmail;
       this.isRecipientView = true;
@@ -43,8 +46,8 @@ export class ChatPageComponent {
       this.email = this.senderEmail;
       this.isRecipientView = false;
     }
-
-    this.listingsService.getChatHistory(this.listingId, this.email)
+    console.log(this.conversationId);
+    this.listingsService.getChatHistory(this.conversationId)
       .subscribe(messages => this.messages = messages);
   }
 
@@ -61,7 +64,7 @@ export class ChatPageComponent {
       const currentEmail = user.email;
       const sender = this.isRecipientView ? currentEmail : currentEmail;
       const recipient = this.isRecipientView ? '' : this.senderEmail;
-      this.listingsService.sendMessage(this.listingId, recipient, sender, this.newMessage).subscribe(sentMessage => {
+      this.listingsService.sendMessage(this.listingId, recipient, sender, this.newMessage, this.conversationId).subscribe(sentMessage => {
         sentMessage.timestamp = new Date().toISOString();;
         this.messages.push(sentMessage);
         this.newMessage = '';

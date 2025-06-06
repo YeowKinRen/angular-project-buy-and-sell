@@ -42,28 +42,28 @@ export class MyChatComponent implements OnInit {
 
       this.listingsService.getListings().subscribe(listings => {
         // Exclude listings owned by current user
+
         const otherListings = listings.filter(listing => listing.userId != user.uid);
+        const listingIds = otherListings.map(listing => listing.id);
+        if (listingIds.length === 0) return;
 
         this.groupedSentMessages = {};
 
-        otherListings.forEach(listing => {
-          this.listingsService.getMessages(listing.id).subscribe(messages => {
-            messages.forEach(msg => {
-              if (msg.senderEmail === myEmail) {
-                const existing = this.groupedSentMessages[listing.id];
+        this.listingsService.getMessagesByListingIds(listingIds).subscribe(messages => {
+          messages.forEach(msg => {
+            if (msg.senderEmail === myEmail) {
+              const listing = otherListings.find(l => l.id === msg.listingId);
+              if (!listing) return;
 
-                // If no message yet or this one is newer
-                if (
-                  !existing ||
-                  new Date(msg.timestamp) > new Date(existing.message.timestamp)
-                ) {
-                  this.groupedSentMessages[listing.id] = {
-                    listingName: listing.name,
-                    message: msg
-                  };
-                }
+              const existing = this.groupedSentMessages[msg.listingId];
+              // If no message yet or this one is newer
+              if (!existing || new Date(msg.timestamp) > new Date(existing.message.timestamp)) {
+                this.groupedSentMessages[msg.listingId] = {
+                  listingName: listing.name,
+                  message: msg
+                };
               }
-            });
+            }
           });
         });
       });
@@ -72,14 +72,17 @@ export class MyChatComponent implements OnInit {
 
 
 
-openMessageDetail(listingId: string): void {
-  this.user$.pipe(take(1)).subscribe(user => {
-    if (!user) return;
-    const myEmail = user.email ?? '';
-    this.router.navigate(['/chat', listingId], {
-      queryParams: { recipientEmail: myEmail }
+  openMessageDetail(listingId: string, conversationId: string): void {
+    this.user$.pipe(take(1)).subscribe(user => {
+      if (!user) return;
+      const myEmail = user.email ?? '';
+      this.router.navigate(['/chat', listingId], {
+        queryParams: {
+          recipientEmail: myEmail,
+          conversationId: conversationId
+        }
+      });
     });
-  });
-}
+  }
 
 }

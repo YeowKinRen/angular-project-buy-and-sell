@@ -16,4 +16,5 @@ export interface Message {
   recipientEmail: string;
   message: string;
   timestamp: string;
+  conversationId: string;
 }

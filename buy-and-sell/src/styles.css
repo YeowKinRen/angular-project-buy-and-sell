@@ -228,7 +228,13 @@ textarea:focus {
 }
 
 
-
+.notification-dot {
+  color: red;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-left: 4px;
+  vertical-align: middle;
+}
 
 
 /* Message Layout */

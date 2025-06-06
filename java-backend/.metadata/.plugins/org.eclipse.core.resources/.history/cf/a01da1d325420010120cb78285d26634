@@ -1,0 +1,15 @@
+runtime: java17
+env: standard
+runtime_config:
+  jdk: openjdk17
+
+entrypoint: java -jar target/buy-and-sell-0.0.1-SNAPSHOT.jar
+
+resources:
+  cpu: 1
+  memory_gb: 1
+  disk_size_gb: 10
+
+handlers:
+  - url: /.*
+    script: auto

@@ -23,7 +23,6 @@ export class ListingsPageComponent implements OnInit {
   ngOnInit(): void {
     this.listingsService.getListings().subscribe({
       next: listings => {
-        console.log('Listings received:', listings); // <- This should log your array
         this.listings = listings;
       },
       error: err => {

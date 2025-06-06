@@ -34,11 +34,18 @@ public class MessageController {
 
 		return ResponseEntity.ok(messages);
 	}
+	
+	@GetMapping()
+	public ResponseEntity<List<Message>> getMessagesByListingIds(@RequestParam List<String> listingIds) {
+		List<Message> messages = messageRepository.findByListingIdInOrderByTimestampDesc(listingIds);
 
-	@GetMapping("/history/{listingId}")
-	public ResponseEntity<List<Message>> getMessageHistory(@PathVariable String listingId, @RequestParam String email) {
+		return ResponseEntity.ok(messages);
+	}
+
+	@GetMapping("/history")
+	public ResponseEntity<List<Message>> getMessageHistory(@RequestParam String conversationId) {
 		List<Message> messages = messageRepository
-				.findByListingIdAndSenderEmailOrRecipientEmailOrderByTimestampAsc(listingId, email, email);
+				.findByConversationIdOrderByTimestampAsc(conversationId);
 		return ResponseEntity.ok(messages);
 	}
 
@@ -48,7 +55,11 @@ public class MessageController {
 			// Verify Firebase token
 			FirebaseToken user = firebaseAuth.verifyIdToken(token);
 			String userId = user.getUid();
-			message.setId(UUID.randomUUID().toString());
+			String uuid = UUID.randomUUID().toString();
+			message.setId(uuid);
+			if (message.getConversationId() == null) {
+				message.setConversationId(uuid);
+			}
 			Message savedMessage = messageRepository.save(message);
 			return ResponseEntity.ok(savedMessage);
 

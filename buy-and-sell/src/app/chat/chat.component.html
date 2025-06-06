@@ -1,7 +1,8 @@
 <div class="message-container">
   <div *ngFor="let senderEmail of groupedMessages | keyvalue">
 
-    <div class="message-box" *ngFor="let msgEntry of senderEmail.value | keyvalue" (click)="openMessageDetail(msgEntry.key, senderEmail.key)">
+    <div class="message-box" *ngFor="let msgEntry of senderEmail.value | keyvalue"
+      (click)="openMessageDetail(msgEntry.key, senderEmail.key, msgEntry.value.message.conversationId)">
       <h4>👤 {{ senderEmail.key }}</h4>
 
       <strong>Listing: {{ msgEntry.value.listingName }}</strong><br />

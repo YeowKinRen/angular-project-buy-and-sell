@@ -56,7 +56,7 @@ export class ContactPageComponent {
     if (!this.email.trim()) return;
     // alert('Your message have been sent!');
     // this.router.navigateByUrl('/listings');
-    this.listingsService.sendMessage(this.id, '', this.email, this.message).subscribe(sentMessage => {
+    this.listingsService.sendMessage(this.id, '', this.email, this.message, null).subscribe(sentMessage => {
       this.router.navigateByUrl('/listings');
     });
 

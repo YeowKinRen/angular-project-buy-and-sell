@@ -146,17 +146,26 @@ export class ListingsService {
     return this.http.get<Message[]>(`/api/messages/${listingId}`);
   }
 
-  getChatHistory(listingId: string, senderEmail: string): Observable<Message[]> {
-    const params = new HttpParams().set('email', senderEmail);
-    return this.http.get<Message[]>(`/api/messages/history/${listingId}`, { params }
+  getMessagesByListingIds(listingIds: string[]) {
+    const params = new HttpParams().appendAll({
+      listingIds
+    });
+
+    return this.http.get<Message[]>(`/api/messages`, { params });
+  }
+
+  getChatHistory(conversationId: string): Observable<Message[]> {
+    const params = new HttpParams().set('conversationId', conversationId);
+    return this.http.get<Message[]>(`/api/messages/history`, { params }
     );
   }
 
   sendMessage(
     listingId: string,
-    recipientEmail: string | null,
+    recipientEmail: string,
     senderEmail: String | null,
     message: string,
+    conversationId: String | null,
   ): Observable<Message> {
     return this.getUser$().pipe(
       switchMap(user => {
@@ -166,7 +175,7 @@ export class ListingsService {
           switchMap(token =>
             this.http.post<Message>(
               `/api/messages/send`,
-              { listingId, recipientEmail, senderEmail, message },
+              { listingId, recipientEmail, senderEmail, message, conversationId },
               httpOptionsWithAuthToken(token)
             )
           )

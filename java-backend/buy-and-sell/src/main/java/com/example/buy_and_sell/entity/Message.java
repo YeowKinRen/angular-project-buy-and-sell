@@ -29,6 +29,17 @@ public class Message {
 
     @Column(name = "recipient_email", nullable = false, length = 255)
     private String recipientEmail;
+    
+    @Column(name = "conversation_id", nullable = false, length = 36)
+    private String conversationId;
+
+	public String getConversationId() {
+		return conversationId;
+	}
+
+	public void setConversationId(String conversationId) {
+		this.conversationId = conversationId;
+	}
 
 	public String getId() {
 		return id;
