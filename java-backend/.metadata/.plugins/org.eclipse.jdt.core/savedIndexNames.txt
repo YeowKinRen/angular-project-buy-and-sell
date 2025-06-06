@@ -118,7 +118,6 @@ INDEX VERSION 1.131+C:\Users\SDKRYEOW\Desktop\angular-demo-project\java-backend\
 468645149.index
 3164773478.index
 1865797976.index
-2040279437.index
 2118992815.index
 4123015390.index
 2250357747.index
