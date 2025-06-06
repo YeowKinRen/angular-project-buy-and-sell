@@ -9,4 +9,4 @@ steps:
 
 secrets:
 - secretEnv:
-    FIREBASE_API_KEY: projects/$PROJECT_ID/secrets/FIREBASE_API_KEY/versions/latest
+    FIREBASE_API_KEY: projects/buy-and-sell-1b75e/secrets/FIREBASE_API_KEY/versions/latest
