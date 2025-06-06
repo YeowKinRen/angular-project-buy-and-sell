@@ -8,5 +8,6 @@ steps:
       echo "Firebase API Key is: $FIREBASE_API_KEY"
 
 secrets:
-- secretEnv:
+- kmsKeyName: projects/buy-and-sell-1b75e/locations/global/keyRings/cloudbuild/cryptoKeys/cloudbuild-key
+  secretEnv:
     FIREBASE_API_KEY: projects/buy-and-sell-1b75e/secrets/FIREBASE_API_KEY/versions/latest
