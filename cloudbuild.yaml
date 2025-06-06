@@ -42,3 +42,7 @@ steps:
 
 images:
   - gcr.io/$PROJECT_ID/buy-and-sell-app
+
+
+options:
+  logging: CLOUD_LOGGING_ONLY
