@@ -40,14 +40,14 @@ steps:
       - |
           echo "Cleaning static folder"
           rm -rf java-backend/buy-and-sell/src/main/resources/static/*
-          echo "==== Angular dist folder ===="
-          find buy-and-sell/dist -type f
           echo "Copying Angular dist output to static"
           cp -r buy-and-sell/dist/browser/* java-backend/buy-and-sell/src/main/resources/static/
-          echo "=== List of files in Spring Boot static folder (detailed) ==="
-          ls -l java-backend/buy-and-sell/src/main/resources/static/
-          echo "=== Find all files with details ==="
-          find java-backend/buy-and-sell/src/main/resources/static/ -type f -exec ls -l {} \;
+        # echo "==== Angular dist folder ===="
+        # find buy-and-sell/dist -type f
+        # echo "=== List of files in Spring Boot static folder (detailed) ==="
+        # ls -l java-backend/buy-and-sell/src/main/resources/static/
+        # echo "=== Find all files with details ==="
+        # find java-backend/buy-and-sell/src/main/resources/static/ -type f -exec ls -l {} \;
 
   # Step 2: Build Spring Boot app
   - name: 'gcr.io/cloud-builders/mvn'
