@@ -53,12 +53,12 @@ steps:
   - name: 'gcr.io/cloud-builders/mvn'
     dir: java-backend/buy-and-sell
     secretEnv:
-      - FIREBASE_SERVICE_ACCOUNT
+      - firebase_secret_account
     entrypoint: bash
     args:
       - -c
       - |
-          echo "$FIREBASE_SERVICE_ACCOUNT" > src/main/resources/firebase-service-account.json
+          echo "$firebase_secret_account" > src/main/resources/firebase-service-account.json
           mvn clean package -DskipTests
 
   # # Step 4: Build Docker image
@@ -113,5 +113,5 @@ availableSecrets:
     - versionName: projects/$PROJECT_ID/secrets/FIREBASE_MEASUREMENT_ID/versions/latest
       env: firebase_measurement_id
     - versionName: projects/$PROJECT_ID/secrets/FIREBASE-SERVICE-ACCOUNT/versions/latest
-      env: FIREBASE_SERVICE_ACCOUNT
+      env: firebase_secret_account
 
