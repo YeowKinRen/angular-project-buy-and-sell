@@ -211,6 +211,36 @@ Try out the live version of the Buy and Sell project here:
 
 [https://buy-and-sell-1b75e.et.r.appspot.com/](https://buy-and-sell-1b75e.et.r.appspot.com/)
 
+
+## ⚙️ CI/CD with Google Cloud Run And Cloud Build triggers
+
+Set up Cloud Build Triggers for automatically building and deploying your Buy and Sell project to Cloud Run when you push to a GitHub repository
+- Store Firebase Environment Secrets in Google Cloud Secret Manager
+- Grant Cloud Build access to Secret Manager (Secret Accessor)
+- Add cloudbuild.yaml (defines the steps Cloud Build executes)
+- Create the Cloud Build Trigger
+
+Useful Builds Commands 
+```bash
+# Run build with current directory (includes source)
+gcloud builds submit --config=cloudbuild.yaml --no-source
+
+# Run build using cloudbuild.yaml only (useful for remote triggers)
+gcloud builds submit --config=cloudbuild.yaml
+```
+
+## 🛣️ Future Enhancements
+Here are some planned features and ideas for improvement:
+
+- [X] Chat Messaging feature with Listing Owner
+- [ ] Live Chat (Real-time notifications)
+- [ ] Dark mode toggle
+- [ ] Filter/sort product listings by price, category, and date.
+- [X] Image upload and preview with drag-and-drop support. (Google Storage)
+- [X] Full CI/CD pipeline with GitHub Actions or Cloud Build triggers.
+- [ ] Pagination and search functionality
+
+
 ## 📚 Reference:
 
 This project was initially built by following the LinkedIn Learning tutorial and later customized for improvements and personal learning.
