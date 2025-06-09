@@ -234,11 +234,11 @@ Here are some planned features and ideas for improvement:
 
 - [X] Chat Messaging feature with Listing Owner
 - [ ] Live Chat (Real-time notifications)
-- [ ] Dark mode toggle
+- [X] Dark mode toggle
 - [ ] Filter/sort product listings by price, category, and date.
 - [X] Image upload and preview with drag-and-drop support. (Google Storage)
 - [X] Full CI/CD pipeline with GitHub Actions or Cloud Build triggers.
-- [ ] Pagination and search functionality
+- [X] Pagination and search functionality
 
 
 ## 📚 Reference:
