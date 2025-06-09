@@ -1,16 +1,29 @@
-<div class="listing-grid">
-  <div class="listing-card" *ngFor="let listing of listings">
-    <a [routerLink]="['/listings', listing.id]" class="listing-link">
+<!-- Search Box -->
+<div class="search-container" [class.expanded]="isExpanded">
+  <button class="search-icon btn btn-outline-primary p-100" (click)="toggleSearch()" *ngIf="!isExpanded">
+    <i class="bi bi-search"></i> 
+  </button>
 
-      <!-- Info section -->
+  <input *ngIf="isExpanded" type="text" [(ngModel)]="searchTerm" (input)="onSearchChange()" (blur)="collapseSearch()"
+    placeholder="Search listings..." class="search-box form-control border border-primary shadow-sm" autofocus />
+</div>
+
+<!-- Listing Grid -->
+<div class="listing-grid">
+  <div class="listing-card" *ngFor="let listing of paginatedListings">
+    <a [routerLink]="['/listings', listing.id]" class="listing-link">
       <div class="listing-info">
-        <h3 class="listing-title">
-          {{ listing.name }}
-        </h3>
+        <h3 class="listing-title">{{ listing.name }}</h3>
         <p class="listing-price">${{ listing.price }}</p>
         <p class="listing-description">{{ listing.description || 'No description provided.' }}</p>
       </div>
-
     </a>
   </div>
+</div>
+
+<!-- Pagination controls -->
+<div class="pagination-controls">
+  <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+  <span>Page {{ currentPage }} of {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
 </div>

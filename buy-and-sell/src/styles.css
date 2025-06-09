@@ -362,6 +362,7 @@ textarea:focus {
 
 .nav-link {
   color: var(--text-color) !important;
+  font-weight: 350;
 }
 
 .nav-link.active {
@@ -502,4 +503,31 @@ body.dark-mode .form-check-label {
 
 body, input, textarea, button, .content-box, .listing-card, .message-box {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;  /* horizontally center */
+  align-items: center;      /* vertically align (optional) */
+  gap: 1rem;                /* spacing between elements */
+  margin: 1rem 0;           /* vertical spacing */
+}
+
+.form-check-input {
+  margin-top: 0.1rem; /* tweak if needed */
+}
+
+.form-check-label {
+  line-height: 1.5;
+}
+
+/* Dark mode styles */
+body.dark-mode .search-box {
+  background-color: #1e1e1e;       /* Dark background */
+  color: #f1f1f1;                  /* Light text */
+  border-color: #4a90e2;           /* Blue-ish border */
+}
+
+body.dark-mode .search-box::placeholder {
+  color: #aaaaaa;                  /* Dim placeholder */
 }

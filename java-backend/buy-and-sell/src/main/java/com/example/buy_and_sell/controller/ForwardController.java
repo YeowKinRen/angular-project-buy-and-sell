@@ -8,14 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ForwardController {
 
     // This matches any path that does not contain a dot (e.g., .js, .css, .png)
-    @GetMapping(value = "/{path:[^\\.]+}")
+    @GetMapping(value = "/**/{path:[^\\.]*}")
     public String redirect() {
         return "forward:/index.html";
     }
-
-    // Optional: support deeper paths like /dashboard/123
-//    @GetMapping(value = "/{path:[^\\.]+}")
-//    public String forward() {
-//        return "forward:/index.html";
-//    }
 }
