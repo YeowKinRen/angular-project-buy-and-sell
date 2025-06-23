@@ -437,6 +437,16 @@ body.dark-mode .listing-card {
 }
 
 /* Navbar */
+body .navbar-toggler {
+  background-color: #eae1e1 !important;
+}
+
+/* Navbar */
+body.dark-mode .navbar-toggler {
+  background-color: #383535 !important;
+}
+
+/* Navbar */
 body.dark-mode .navbar {
   background-color: #1f1f1f !important;
 }
@@ -530,4 +540,14 @@ body.dark-mode .search-box {
 
 body.dark-mode .search-box::placeholder {
   color: #aaaaaa;                  /* Dim placeholder */
+}
+
+.toggle-link {
+  color: #007bff; /* Bootstrap blue, or use your brand color */
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.toggle-link:hover {
+  color: #0056b3; /* Darker on hover */
 }

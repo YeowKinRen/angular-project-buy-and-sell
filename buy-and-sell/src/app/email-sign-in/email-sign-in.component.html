@@ -1,0 +1,40 @@
+<div id="email-signin-form">
+
+  <h2>{{ isLoginMode ? 'Log In' : 'Register' }}</h2>
+
+  <div class="mb-3">
+    <input
+      type="email"
+      name="email"
+      [(ngModel)]="email"
+      class="form-control"
+      placeholder="Email"
+      required />
+  </div>
+
+  <div class="mb-3">
+    <input
+      type="password"
+      name="password"
+      [(ngModel)]="password"
+      class="form-control"
+      placeholder="Password"
+      required />
+  </div>
+
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <button (click)="onSubmit($event)">
+    {{ isLoginMode ? 'Log In' : 'Register' }}
+  </button>
+
+  <p class="toggle">
+    {{ isLoginMode ? "Don't have an account?" : "Already have an account?" }}
+    <a href="#" class="toggle-link" (click)="toggleMode(); $event.preventDefault();">
+      {{ isLoginMode ? 'Register here' : 'Log in here' }}
+    </a>
+  </p>
+
+</div>

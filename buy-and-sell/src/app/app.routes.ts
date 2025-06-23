@@ -8,6 +8,7 @@ import { NewListingPageComponent } from './new-listing-page/new-listing-page.com
 import { ChatComponent } from './chat/chat.component';
 import { ChatPageComponent } from './chat-page/chat-page.component';
 import { MyChatComponent } from './my-chat/my-chat.component';
+import { EmailSignInComponent } from './email-sign-in/email-sign-in.component';
 
 export const routes: Routes = [
     {path:'', redirectTo:'/listings', pathMatch:'full'},
@@ -20,6 +21,6 @@ export const routes: Routes = [
     {path:'chat', component:ChatComponent},
     {path:'chat/:listingId', component:ChatPageComponent},
     {path:'my-chat', component:MyChatComponent},
-
+    {path:'app-email-sign-in', component:EmailSignInComponent},
 
 ];
